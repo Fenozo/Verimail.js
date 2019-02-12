@@ -91,6 +91,14 @@ Verimail.Status = {
 
 // Localization
 Verimail.Language = {
+    fr : {
+        success : "Email valide",
+        typo: "Voulez vous dire <span class='suggestion'>%s</span>?",
+        invalidTld: "Le domaine premier niveau <span class='tld'>%s</span> n'existe pas",
+        domainBlocked: "le domain <span class='blocked'>%s</span> n'est pas autorisé",
+        invalidFormat: "L'email est incorrectement formater",
+        empty: "Le champ ne peut pas être vide"
+    },
     en: {
         success: "Email looks OK",
         typo: "Did you mean <span class='suggestion'>%s</span>?",
@@ -471,10 +479,18 @@ Verimail.prototype.verify = function(email, onStatusUpdate){
             if(this.$element.val() && this.$element.val().length > 0){
                 verifyEmailCallback(this.$element.val());
             }
-
+            /**
+             * Lors que le curseur qui le champ
+             */
+            this.$element.blur(function (e){
+                var email = $(this).val().toLowerCase();
+                //$(this).val(email);
+            });
             this.$element.keyup(function(e){
+               
                 var email = $(this).val();
-
+                email = email.toLowerCase();
+                $(this).val(email);
                 if(outerScope.timeoutId){
                     clearTimeout(outerScope.timeoutId);
                 }
@@ -486,6 +502,7 @@ Verimail.prototype.verify = function(email, onStatusUpdate){
                 }else{
                     verifyEmailCallback(email);
                 }
+
             });
 
             return this;

@@ -486,6 +486,11 @@ Verimail.prototype.verify = function(email, onStatusUpdate){
                 var email = $(this).val().toLowerCase();
                 //$(this).val(email);
             });
+            this.$element.keypress(function(e){
+                var email = $(this).val();
+                email = email.toUpperCase();
+                //$(this).val(email);
+            });
             this.$element.keyup(function(e){
                
                 var email = $(this).val();
